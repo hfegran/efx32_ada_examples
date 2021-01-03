@@ -1,0 +1,30 @@
+project Ada_Blinky_Zfp is
+
+   for Source_Dirs use ("src");
+   for Object_Dir use "obj";
+   for Main use ("main.adb");
+   for Runtime ("ada") use "zfp-efm32gg12b";
+   for Target use "arm-eabi";
+
+   package Ide is
+      for Connection_Tool use "~/ada_projects/ada-blinky-zfp/jlinkgdbserver -device efm32gg12b810f1024 -if swd";
+      for Connection_Config_File use "";
+      for Program_Host use "localhost:2331";
+      for Communication_Protocol use "extended-remote";
+   end Ide;
+
+   package Compiler is
+      for Switches ("ada") use ("-g", "-gnatwa", "-gnatQ");
+   end Compiler;
+
+   package Builder is
+      for Switches ("Ada") use ("-g");
+      for Switches ("ada") use ("-g", "-j4", "-s");
+   end Builder;
+
+   package Linker is
+      for Switches ("ada") use ("-g");
+   end Linker;
+
+end Ada_Blinky_Zfp;
+
